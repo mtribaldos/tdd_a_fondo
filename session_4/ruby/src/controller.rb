@@ -30,6 +30,12 @@ class Controller < Sinatra::Base
     reply({})
   end
 
+  put '/tips/:id' do
+    question = JSON.parse(request.body.read)
+
+    reply({ "review" => "sfsds"})
+  end
+
   private
 
   def reply(message)

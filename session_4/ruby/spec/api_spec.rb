@@ -42,6 +42,19 @@ describe 'API' do
     expect(last_response.status).to eq(200)
     expect(TestRepository.exists?(stored['id'])).to eq(false)
   end
+
+  it 'adds additional information to an existing tip' do
+    tip = TipBuilder.a_tip.build
+    stored = TestRepository.store(tip)
+    add_info = {
+      "review" => "Una review cualquiera"
+    }
+
+    put "/tips/#{stored['id']}", JSON.dump(add_info)
+
+    expect(last_response.status).to eq(200)
+    expect(last_parsed_response['review']).to eq(add_info['review'])
+  end
 end
 
 class TipBuilder
